@@ -20,9 +20,6 @@ void main() {
   } else if (operator == "/") {
     print(divide(
         double.parse(number1.toString()), double.parse(number2.toString())));
-  } else if (operator == "/") {
-    print(divide(
-        double.parse(number1.toString()), double.parse(number2.toString())));
   } else
     print("Invalid Operator");
 }

@@ -33,6 +33,11 @@ class _HomeViewState extends State<HomeView> {
 
   void _increment() {
     setState(() {
+      // if (number != null) {
+      //   number = number! + 1;
+      // } else {
+      //   number = 1;
+      // }
       number = number != null ? number! + 1 : 1;
     });
   }

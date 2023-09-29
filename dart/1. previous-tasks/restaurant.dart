@@ -59,8 +59,10 @@ class Restaurant {
 
 void main() {
   final User user = User("Ahmed", 100);
+  print("User: ${user.info()}");
   final Restaurant restaurant = Restaurant("KFC");
   final Order order = Order("Chicken", 50, user);
+  order.info();
   restaurant.addOrder(order);
   restaurant.printOrders();
 }
