@@ -28,6 +28,9 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final primary = const Color.fromRGBO(28, 30, 51, 0.8);
+  int weightValue = 40;
+  int ageValue = 20;
+  double heightValue = 150;
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +91,9 @@ class _HomeViewState extends State<HomeView> {
                     "Height",
                     style: TextStyle(fontSize: 30),
                   ),
-                  const Text(
-                    "150",
-                    style: TextStyle(
+                  Text(
+                    heightValue.toInt().toString(),
+                    style: const TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.bold,
                     ),
@@ -98,8 +101,12 @@ class _HomeViewState extends State<HomeView> {
                   Slider(
                     min: 150,
                     max: 220,
-                    value: 150,
-                    onChanged: (value) {},
+                    value: heightValue,
+                    onChanged: (value) {
+                      setState(() {
+                        heightValue = value;
+                      });
+                    },
                     activeColor: Colors.orange,
                   ),
                 ],
@@ -124,9 +131,9 @@ class _HomeViewState extends State<HomeView> {
                             fontSize: 30,
                           ),
                         ),
-                        const Text(
-                          "40",
-                          style: TextStyle(
+                        Text(
+                          weightValue.toString(),
+                          style: const TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
                           ),
@@ -134,34 +141,40 @@ class _HomeViewState extends State<HomeView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.orange,
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "+",
-                                  style: TextStyle(
-                                    fontSize: 30,
+                            InkWell(
+                              onTap: () => incrementWeight(),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.orange,
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.orange,
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "-",
-                                  style: TextStyle(
-                                    fontSize: 30,
+                            InkWell(
+                              onTap: () => decrementWeight(),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.orange,
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "-",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -188,9 +201,9 @@ class _HomeViewState extends State<HomeView> {
                             fontSize: 30,
                           ),
                         ),
-                        const Text(
-                          "20",
-                          style: TextStyle(
+                        Text(
+                          ageValue.toString(),
+                          style: const TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
                           ),
@@ -198,34 +211,40 @@ class _HomeViewState extends State<HomeView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.orange,
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "+",
-                                  style: TextStyle(
-                                    fontSize: 30,
+                            InkWell(
+                              onTap: () => incrementAge(),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.orange,
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.orange,
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "-",
-                                  style: TextStyle(
-                                    fontSize: 30,
+                            InkWell(
+                              onTap: () => decrementAge(),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.orange,
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "-",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -248,7 +267,7 @@ class _HomeViewState extends State<HomeView> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                       ),
-                      onPressed: () {},
+                      onPressed: () => calculateBMI(),
                       child: const Text(
                         "Calculate BMI",
                         style: TextStyle(
@@ -262,6 +281,113 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void incrementWeight() {
+    setState(() {
+      weightValue++;
+    });
+  }
+
+  void decrementWeight() {
+    setState(() {
+      // weightValue = weightValue - 1 >= 40 ? weightValue-- : weightValue;
+      if (weightValue - 1 >= 40) {
+        weightValue--;
+      }
+    });
+  }
+
+  void incrementAge() {
+    setState(() {
+      ageValue++;
+    });
+  }
+
+  void decrementAge() {
+    setState(() {
+      if (ageValue - 1 >= 10) {
+        ageValue--;
+      }
+    });
+  }
+
+  void calculateBMI() {
+    int score = weightValue * ageValue;
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return ScoreView(
+            bodyState: "LOL",
+            score: score,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ScoreView extends StatelessWidget {
+  const ScoreView({
+    super.key,
+    required this.bodyState,
+    required this.score,
+  });
+
+  final String bodyState;
+  final int score;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text(
+          "Your Score",
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        centerTitle: false,
+      ),
+      body: Center(
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: const Color.fromRGBO(28, 30, 51, 0.8),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                bodyState,
+                style: const TextStyle(
+                  fontSize: 40,
+                ),
+              ),
+              Text(
+                score.toString(),
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Column(
+                children: [
+                  Text("Normal BMI"),
+                  Text("18.5 - 25 kg/m"),
+                ],
+              ),
+              const Text("You are asdasds"),
+            ],
+          ),
         ),
       ),
     );
