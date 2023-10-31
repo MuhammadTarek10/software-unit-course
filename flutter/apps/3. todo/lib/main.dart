@@ -135,6 +135,7 @@ class _ToDoViewState extends State<ToDoView> {
                   decoration: todo.isDone ? TextDecoration.lineThrough : null,
                   color: Colors.grey,
                 ),
+                // overflow: TextOverflow.ellipsis,
               ),
               leading: IconButton(
                 onPressed: () {
