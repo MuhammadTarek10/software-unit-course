@@ -68,12 +68,15 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: barIndex,
         onTap: (index) => changePage(index),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: Image.asset(
+              "assets/icons/todo-list.png",
+              scale: 4,
+            ),
             label: "List",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.add),
             label: "Add",
           ),
@@ -162,9 +165,17 @@ class _TodoViewState extends State<TodoView> {
   }
 
   void addTodo() {
-    todos.add(
-      ToDoEntity(title: "Ahmed", description: "Mohamed"),
-    );
+    final title = _titleController.text;
+    final description = _descriptionController.text;
+
+    if (title.isEmpty || description.isEmpty) {
+      return;
+    }
+
+    final todo = ToDoEntity(title: title, description: description);
+    todos.add(todo);
+    _titleController.text = "";
+    _descriptionController.text = "";
   }
 }
 
